@@ -1,0 +1,60 @@
+<h1>what's this</h1>
+<p>
+  <a href="https://dev.twitter.com/blog/changes-coming-to-twitter-api">Twitterがすべてのエンドポイントに認証を要求するようになる</a>けど検索結果をフィードで読みたいみたいなの。
+</p>
+
+<form action="/feed" method="get">
+  <table>
+    <%= tr("Consumer key", "consumer", "9DI8YHRaYkZaiEcOxMTag") %>
+    <%= tr("Consumer secret", "consumer_secret", "Bf7NtCv7SyBhGNvTuRxUnzfzojXgEixY4L3i8dfkT0") %>
+    <%= tr("Access token", "token") %>
+    <%= tr("Access token secret", "secret") %>
+    <tr>
+      <th>method</th>
+      <td>
+        <select name="method">
+          <option <%== params[:method] == "search" ? 'selected="selected"':'' %> value="search">search</option>
+          <option <%== params[:method] == "list" ? 'selected="selected"':'' %> value="list">list</option>
+        </select>
+        <div id="contextual">
+        </div>
+      </td>
+    </tr>
+  </table>
+  <input type="submit" />
+</form>
+
+<div id="methods" style="display: none">
+  <div class="search">
+    q: <input value="<%== params[:query][:q] %>" type="text" name="query[q]" placeholder="Search query: e.g. 'sinatra lang:ja'" />
+  </div>
+  <div class="list">
+    <p>
+      owner screen_name: <input value="<%== params[:query][:owner_screen_name] %>" type="text" name="query[owner_screen_name]" placeholder="e.g.: twitter" />
+    </p>
+    <p>
+      slug: <input value="<%== params[:query][:slug] %>" type="text" name="query[slug]" placeholder="e.g.: team" />
+    </p>
+  </div>
+</div>
+
+<script>
+  var select = document.querySelector('select[name="method"]');
+  function changedMethod() {
+    var opt = select.options[select.selectedIndex];
+    var src = document.querySelector('#methods .' + opt.value);
+    document.querySelector('#contextual').innerHTML = "";
+    document.querySelector('#contextual').appendChild(src.cloneNode(true));
+  }
+  select.addEventListener('change', changedMethod);
+  changedMethod();
+</script>
+
+<% if @error %>
+  <div class="error">
+    <h2><%== @error %></h2>
+    <pre>
+<%== @ex %>
+    </pre>
+  </div>
+<% end %>
