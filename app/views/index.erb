@@ -34,6 +34,9 @@
   </div>
   <div class="list">
     <p>
+      include RT: <input <%== params[:query][:include_rts] == "t" ? 'checked="checked"':'' %> type="checkbox" name="query[include_rts]" value="t" />
+    </p>
+    <p>
       owner screen_name: <input value="<%== params[:query][:owner_screen_name] %>" type="text" name="query[owner_screen_name]" placeholder="e.g.: twitter" />
     </p>
     <p>
