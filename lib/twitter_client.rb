@@ -11,8 +11,6 @@ class TwitterClient
     params = params.each_pair.reject{|k,v| v.nil?}.inject({}){|r, (k,v)| r[k]=v; r}
     url = "https://#{params["host"] || "api.twitter.com"}#{path}"
     uri = URI.parse(url)
-    pp params
-    pp @tokens
     c = OAuth::Consumer.new(@tokens[:consumer], @tokens[:consumer_secret], :site => "https://#{uri.host}")
     a = OAuth::AccessToken.new(c, @tokens[:token], @tokens[:token_secret])
     method = method.to_s.downcase
