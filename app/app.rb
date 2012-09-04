@@ -5,6 +5,9 @@ class MyApp < Sinatra::Base
   set :views, File.join(root, "app/views")
   set :public_folder, File.join(root, "public")
 
+  enable :sessions
+  set :session_secret, "pTFTauza/qPLdZeVH5E="
+
   register Sinatra::RespondWith
   register Sinatra::Namespace
 

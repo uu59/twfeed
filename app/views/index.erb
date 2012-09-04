@@ -9,10 +9,10 @@
 
 <form action="/feed" method="get">
   <table>
-    <%= tr("Consumer key", "consumer", "9DI8YHRaYkZaiEcOxMTag") %>
-    <%= tr("Consumer secret", "consumer_secret", "Bf7NtCv7SyBhGNvTuRxUnzfzojXgEixY4L3i8dfkT0") %>
-    <%= tr("Access token", "token") %>
-    <%= tr("Access token secret", "secret") %>
+    <%= tr("Consumer key", "consumer", session[:consumer] || ENV["consumer"]) %>
+    <%= tr("Consumer secret", "consumer_secret", session[:consumer_secret] || ENV["consumer_secret"]) %>
+    <%= tr("Access token", "token", session[:token]) %>
+    <%= tr("Access token secret", "secret", session[:secret]) %>
     <tr>
       <th>method</th>
       <td>
@@ -25,8 +25,10 @@
       </td>
     </tr>
   </table>
-  <input type="submit" />
+  <input type="submit" value="get feed" onclick="this.parentNode.target='_blank';" />
+  <input type="submit" value="get token" onclick="this.parentNode.action='/oauth/request';" />
 </form>
+
 
 <div id="methods" style="display: none">
   <div class="search">
