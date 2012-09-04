@@ -7,7 +7,9 @@ end
 
 MyApp.namespace "/" do
   get do
-    erb :index
+    html = erb :index
+    session.clear
+    html
   end
 
   get "feed" do
